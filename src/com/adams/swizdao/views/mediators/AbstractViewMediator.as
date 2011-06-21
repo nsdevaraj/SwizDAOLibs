@@ -24,9 +24,12 @@ package com.adams.swizdao.views.mediators
 	import flash.system.System;
 	
 	import mx.core.UIComponent;
+	import mx.effects.Blur;
+	import mx.effects.Parallel;
 	import mx.events.FlexEvent;
 	
 	import spark.components.supportClasses.SkinnableComponent;
+	import spark.effects.Fade;
 	
 	/**
 	 * The base class for all view mediators. It's most useful function is to
@@ -47,7 +50,10 @@ package com.adams.swizdao.views.mediators
 	{
 		[Inject]
 		public var signalSeq:SignalSequence;
-		private var _hostSkin:Object
+		private var _hostSkin:Object;
+		private var fade:Fade;
+		private var parallel:Parallel;
+		private var blur:Blur;
 		/** 
 		 * A flag indicating if the correpsonding view's creation complete has fired.
 		 */
@@ -90,6 +96,26 @@ package com.adams.swizdao.views.mediators
 			_hostSkin = value;
 		}
 
+		protected function showEffect():void{
+			if(!fade){
+				parallel = new Parallel();
+				fade = new Fade(_view)
+				blur = new Blur(_view);
+				parallel.addChild(fade);
+				parallel.addChild(blur);
+			}
+			parallel.stop();
+			fade.alphaFrom = 0;
+			fade.duration = 800;
+			fade.alphaTo = 1;
+			blur.duration = 800;
+			blur.blurXFrom = 15;
+			blur.blurXTo = 0;
+			blur.blurYFrom = 15;
+			blur.blurXTo = 0;
+			parallel.play();
+		} 
+		
 		/**
 		 * Listen for views added to the stage and determine if it's the corresponding 
 		 * View for this View Mediator. This check is done by looking at the view added 
@@ -149,7 +175,7 @@ package com.adams.swizdao.views.mediators
 		}
 		
 		protected function setRenderers():void {
-			// OVERRIDDEN
+			
 		}
 		
 		/**
@@ -171,7 +197,7 @@ package com.adams.swizdao.views.mediators
 		 * </p>
 		 */
 		protected function setViewDataBindings():void 	{
-			// OVERRIDDEN
+			showEffect();
 		}		
 		
 		/**
