@@ -19,5 +19,6 @@ package com.adams.swizdao.model.vo
 	{ 
 		function get processed():Boolean
 		function set processed(value:Boolean):void
+		function fill(item:Object):void
 	}
 }

@@ -27,6 +27,7 @@ package com.adams.swizdao.response
 	import com.adams.swizdao.util.GetVOUtil;
 	
 	import mx.collections.ArrayCollection;
+	import mx.core.ClassFactory;
 	import mx.rpc.AsyncToken;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
@@ -127,7 +128,11 @@ package com.adams.swizdao.response
 					var rawResult:Object = GetVOUtil.xmlToObject( resultObj as XML);
 					var result:Object = GetVOUtil.parseHTTPResult(rawResult,currentSignal.receivers);
 					if(collection.items)if(collection.items.length >0) collection.items.removeAll();
-					collection.updateItems( result as ArrayCollection );
+					for each(var item:Object in result){	
+						var httpEntry:IValueObject= new ClassFactory(currentSignal.clazz).newInstance();
+						httpEntry.fill(item)
+						collection.addItem(httpEntry);
+					}
 					break;
 				case Action.CREATE:
 					collection.addItem( resultObj );

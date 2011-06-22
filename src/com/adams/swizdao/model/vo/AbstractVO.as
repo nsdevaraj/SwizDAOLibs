@@ -35,5 +35,8 @@ package com.adams.swizdao.model.vo
 			_processed = value;
 		}
 		
+		public function fill(item:Object):void
+		{
+		}
 	}
 }
