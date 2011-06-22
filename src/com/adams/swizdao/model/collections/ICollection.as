@@ -42,6 +42,7 @@ package com.adams.swizdao.model.collections
 		function removeAll():void;
 		function updateItem( oldValueObject:Object, newValueObject:Object ):void;
 		function updateItems( newList:IList ):void; 
+		function addItems( newList:IList ):void; 
 		function containsItem( item:Object ):Boolean;
 		function findExistingItem( item:Object , itemsList:IList=null):Object;
 		function findExistingPropItem( item:Object,prop:String ):Object 

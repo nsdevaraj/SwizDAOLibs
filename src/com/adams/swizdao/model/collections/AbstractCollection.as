@@ -227,6 +227,21 @@ package com.adams.swizdao.model.collections
 		}
 		
 		/**
+		 * Takes0 newList as parameter if the existing list is empty then it updates it with the newList
+		 * else replace the oldlistItem with the newlistItems;
+		 */
+		public function addItems( newList:IList ):void {
+			if( !items ) {
+				items = newList;
+			}
+			else {
+				for( var i:int = 0; i < newList.length; i++ ) {
+					addItem( newList.getItemAt( i ) );
+				} 
+			}
+		}
+		
+		/**
 		 * Returns index position of the item searched from the list, if not exist -1 will be the return value
 		 */ 
 		public function modifyItem( item:Object, arrc:ArrayCollection, sortString:String ):int {

@@ -133,7 +133,7 @@ package com.adams.swizdao.response
 						httpEntry.fill(item)
 						collectItems.addItem(httpEntry);
 					}
-					collection.updateItems( collectItems );
+					collection.addItems( collectItems );
 					break;
 				case Action.CREATE:
 					collection.addItem( resultObj );
