@@ -127,12 +127,13 @@ package com.adams.swizdao.response
 				case Action.HTTP_REQUEST:
 					var rawResult:Object = GetVOUtil.xmlToObject( resultObj as XML);
 					var result:Object = GetVOUtil.parseHTTPResult(rawResult,currentSignal.receivers);
-					if(collection.items)if(collection.items.length >0) collection.items.removeAll();
+					var collectItems:ArrayCollection = new ArrayCollection();
 					for each(var item:Object in result){	
 						var httpEntry:IValueObject= new ClassFactory(currentSignal.clazz).newInstance();
 						httpEntry.fill(item)
-						collection.addItem(httpEntry);
+						collectItems.addItem(httpEntry);
 					}
+					collection.updateItems( collectItems );
 					break;
 				case Action.CREATE:
 					collection.addItem( resultObj );
