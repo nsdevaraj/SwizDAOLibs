@@ -23,6 +23,8 @@ package com.adams.swizdao.dao
 	
 	import mx.collections.IList;
 	import mx.rpc.AsyncToken;
+	import mx.rpc.http.HTTPService;
+	import mx.rpc.mxml.Concurrency;
 	import mx.rpc.remoting.mxml.RemoteObject;
 	
 	public class CRUDObject  
@@ -30,6 +32,8 @@ package com.adams.swizdao.dao
 		[Inject]
 		public var delegate:AbstractResult;
 		
+		protected var requestService:HTTPService;
+		protected var lastParam:Object;
 		private var _voClazz:Class;
 		public function get voClazz():Class
 		{
@@ -228,6 +232,21 @@ package com.adams.swizdao.dao
 		public function getRefreshProjList(lastAccessedTime:Date, personId:int):AsyncToken {
 			invoke();
 			delegate.token = remoteService.findByDate(lastAccessedTime,personId); 
+			return delegate.token;
+		}
+		
+		public function makeHTTPCall( url:String, param:Object = null, method:String = '', format:String = "e4x" ):AsyncToken {
+			if( !requestService ) {
+				requestService = new HTTPService();
+				requestService.useProxy = false; 
+			}	
+			requestService.url = url;
+			requestService.useProxy = false;
+			requestService.concurrency =Concurrency.SINGLE ;
+			requestService.method = method;
+			requestService.resultFormat = format;
+			lastParam = param;
+			delegate.token = requestService.send( param );
 			return delegate.token;
 		}
 		

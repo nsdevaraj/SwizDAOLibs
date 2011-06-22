@@ -123,6 +123,12 @@ package com.adams.swizdao.response
 		 */
 		public function updateCollection( collection:ICollection, currentSignal:SignalVO, resultObj:Object ):ICollection {
 			switch( currentSignal.action ) {
+				case Action.HTTP_REQUEST:
+					var rawResult:Object = GetVOUtil.xmlToObject( resultObj as XML);
+					var result:Object = GetVOUtil.parseHTTPResult(rawResult,currentSignal.receivers);
+					if(collection.items)if(collection.items.length >0) collection.items.removeAll();
+					collection.updateItems( result as ArrayCollection );
+					break;
 				case Action.CREATE:
 					collection.addItem( resultObj );
 					break;

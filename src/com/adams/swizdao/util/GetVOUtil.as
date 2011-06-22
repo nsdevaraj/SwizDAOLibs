@@ -18,11 +18,14 @@ package com.adams.swizdao.util
 	
 	import com.adams.swizdao.model.vo.IValueObject;
 	
+	import flash.xml.XMLDocument;
+	
 	import mx.collections.ArrayCollection;
 	import mx.collections.IList;
 	import mx.collections.IViewCursor;
 	import mx.collections.Sort;
 	import mx.collections.SortField;
+	import mx.rpc.xml.SimpleXMLDecoder;
 	
 	public class GetVOUtil
 	{  
@@ -30,6 +33,22 @@ package com.adams.swizdao.util
 		private static var dp:ArrayCollection;
 		private static var cursor:IViewCursor;
 		private static var found:Boolean; 
+		
+		public static function xmlToObject( xml:XML ):Object {
+			var xmlStr:String = xml.toString();
+			var xmlDoc:XMLDocument = new XMLDocument( xmlStr );
+			var decoder:SimpleXMLDecoder = new SimpleXMLDecoder( true );
+			var obj:Object = decoder.decodeXML( xmlDoc );
+			return obj;
+		}
+		
+		public static function parseHTTPResult( obj:Object, arr:Array ):Object {
+			if(arr.length>0){
+				var getObjProp:String = arr.pop()
+				obj= parseHTTPResult(obj[getObjProp],arr)
+			}
+			return obj;
+		}
 		
 		public static function getVOObject( pkId:int, coll:IList, primaryKey:String, clz:Class):IValueObject{
 			var item:IValueObject = new clz();
