@@ -1,18 +1,18 @@
 /*
- * Copyright 2010 @nsdevaraj
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License. You may obtain a copy of the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
+* Copyright 2010 @nsdevaraj
+* 
+* Licensed under the Apache License, Version 2.0 (the "License"); you may not
+* use this file except in compliance with the License. You may obtain a copy of
+* the License. You may obtain a copy of the License at
+* 
+* http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+* WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+* License for the specific language governing permissions and limitations under
+* the License.
+*/
 package com.adams.swizdao.model.vo
 {
 	import com.adams.swizdao.dao.IAbstractDAO;
@@ -68,90 +68,90 @@ package com.adams.swizdao.model.vo
 				name = pushmsg.name;
 				description = pushmsg.description;
 			}
-		
+			
 		}
-
+		
 		public function get emailBody():String
 		{
 			return _emailBody;
 		}
-
+		
 		public function set emailBody(value:String):void
 		{
 			_emailBody = value;
 		}
-
+		
 		public function get emailId():String
 		{
 			return _emailId;
 		}
-
+		
 		public function set emailId(value:String):void
 		{
 			_emailId = value;
 		}
-
+		
 		public function get startIndex():int
 		{
 			return _startIndex;
 		}
-
+		
 		public function set startIndex(value:int):void
 		{
 			_startIndex = value;
 		}
-
+		
 		public function get endIndex():int
 		{
 			return _endIndex;
 		}
-
+		
 		public function set endIndex(value:int):void
 		{
 			_endIndex = value;
 		}
-
+		
 		public function get performed():Boolean
 		{
 			return _performed;
 		}
-
+		
 		public function set performed(value:Boolean):void
 		{
 			_performed = value;
 		}
-
+		
 		public function get daoName():String
 		{
 			return _daoName;
 		}
-
+		
 		public function set daoName(value:String):void
 		{
 			_daoName = value;
 		}
-
+		
 		public function get objectId():String {
 			return _objectId;
 		}
 		public function set objectId( value:String ):void {
 			_objectId = value;
 		}
-
+		
 		public function get destination():String {
 			return _destination;
 		}
 		public function set destination( value:String ):void {
 			_destination = value;
 		}
-		 
+		
 		public function get processor():IVOProcessor {
 			return _processor;
 		}
 		public function set processor( value:IVOProcessor ):void 	{
 			_processor = value;
 		}
-
+		
 		public function get receivers():Array {
 			return _receivers;
 		} 

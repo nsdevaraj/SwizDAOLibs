@@ -1,68 +1,55 @@
 /*
- * Copyright 2010 @nsdevaraj
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License. You may obtain a copy of the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
+* Copyright 2010 @nsdevaraj
+* 
+* Licensed under the Apache License, Version 2.0 (the "License"); you may not
+* use this file except in compliance with the License. You may obtain a copy of
+* the License. You may obtain a copy of the License at
+* 
+* http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+* WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+* License for the specific language governing permissions and limitations under
+* the License.
+*/
 package com.adams.swizdao.dao 
 {
 	import com.adams.swizdao.model.collections.AbstractCollection;
 	import com.adams.swizdao.model.collections.ICollection;
-	import com.adams.swizdao.model.processor.AbstractProcessor;
 	import com.adams.swizdao.model.processor.IVOProcessor;
 	import com.adams.swizdao.model.vo.IValueObject;
 	import com.adams.swizdao.response.AbstractResult;
-	import com.adams.swizdao.util.Action;
 	
 	import mx.collections.IList;
 	import mx.rpc.AsyncToken;
 	import mx.rpc.remoting.mxml.RemoteObject;
-
+	
 	public class CRUDObject  
 	{
+		[Inject]
+		public var delegate:AbstractResult;
+		
 		private var _voClazz:Class;
 		public function get voClazz():Class
 		{
 			return _voClazz;
 		}
-
+		
 		public function set voClazz(value:Class):void
 		{
 			_voClazz = value;
 		}
-
+		
 		public function get processor():IVOProcessor
 		{
 			return _processor;
 		}
-
+		
 		public function set processor(value:IVOProcessor):void
 		{
 			_processor = value;
 		}
-		
-		/**
-		 * The CRUDObject is responsible for assigning VOProcessor, Collection, ServerObject 
-		 * and also manages assigning the AbstractResult as delegate to manage the server responses.
-		 * <p>
-		 * Constructor, parent of AbstractDAO
-		 * </p>
- 		 */
-		public function CRUDObject():void { 
-			
-		}
-		[Inject]
-		public var delegate:AbstractResult;
-		
 		protected var _remoteService:RemoteObject;  
 		public function get remoteService():RemoteObject  {
 			return _remoteService;
@@ -81,10 +68,10 @@ package com.adams.swizdao.dao
 			_destination = str;
 		}
 		/**
- 		 * <p>
+		 * <p>
 		 * The destination of remote service is set accordingly
 		 * </p>
- 		 */		
+		 */		
 		public function invoke():void{
 			remoteService.destination = destination;
 		}
@@ -97,7 +84,7 @@ package com.adams.swizdao.dao
 		 * The sortString of collection is set as destination for generic find functions
 		 * using IViewCursor as Sort is necessary for finding
 		 * </p>
- 		 */
+		 */
 		public function get collection():ICollection {
 			_collection.sortString = destination;
 			return _collection;
@@ -112,7 +99,7 @@ package com.adams.swizdao.dao
 		 * <p>
 		 * The new VO create function for Generic DAO
 		 * </p>
- 		 */
+		 */
 		public function create( vo:IValueObject ):AsyncToken {
 			invoke();
 			delegate.token = remoteService.create(vo);
@@ -124,7 +111,7 @@ package com.adams.swizdao.dao
 		 * <p>
 		 * The VO update function for Generic DAO
 		 * </p>
- 		 */		
+		 */		
 		public function update( vo:IValueObject ):AsyncToken {
 			invoke();
 			delegate.token = remoteService.update(vo);
@@ -148,7 +135,7 @@ package com.adams.swizdao.dao
 		 * <p>
 		 * The VO read function for Generic DAO
 		 * </p>
- 		 */		
+		 */		
 		public function read( id:int ):AsyncToken {
 			invoke();
 			delegate.token = remoteService.findByTaskId( id );
@@ -160,7 +147,7 @@ package com.adams.swizdao.dao
 		 * <p>
 		 * The new VO create function for Generic DAO
 		 * </p>
- 		 */		
+		 */		
 		public function findById( id:int ):AsyncToken {
 			invoke();
 			delegate.token = remoteService.findById( id );
@@ -177,7 +164,7 @@ package com.adams.swizdao.dao
 		 * <p>
 		 * The read for pushed VO function for Generic DAO
 		 * </p>
- 		 */		
+		 */		
 		public function findId( id:int ):AsyncToken {
 			invoke();
 			delegate.token = remoteService.findId( id );
@@ -189,7 +176,7 @@ package com.adams.swizdao.dao
 		 * <p>
 		 * The VO delete function for Generic DAO
 		 * </p>
- 		 */		
+		 */		
 		public function deleteById( vo:IValueObject ):AsyncToken {
 			invoke();
 			delegate.token = remoteService.deleteById( vo );
@@ -201,7 +188,7 @@ package com.adams.swizdao.dao
 		 * <p>
 		 * The VO count function for Generic DAO
 		 * </p>
- 		 */		
+		 */		
 		public function count():AsyncToken {
 			invoke();
 			delegate.token = remoteService.count();
@@ -213,7 +200,7 @@ package com.adams.swizdao.dao
 		 * <p>
 		 * The get All VOs function for Generic DAO
 		 * </p>
- 		 */		
+		 */		
 		public function getList():AsyncToken {
 			invoke();
 			delegate.token = remoteService.getList(); 
@@ -250,7 +237,7 @@ package com.adams.swizdao.dao
 		 * <p>
 		 * The VO list bulk updatefunction for Generic DAO
 		 * </p>
- 		 */		
+		 */		
 		public function bulkUpdate( list:IList ):AsyncToken {
 			invoke();
 			delegate.token = remoteService.bulkUpdate(list);
@@ -262,7 +249,7 @@ package com.adams.swizdao.dao
 		 * <p>
 		 * The delete all VOs function for Generic DAO
 		 * </p>
- 		 */		
+		 */		
 		public function deleteAll():AsyncToken {
 			invoke();
 			delegate.token = remoteService.deleteAll();

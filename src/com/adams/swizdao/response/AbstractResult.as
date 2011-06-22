@@ -27,8 +27,6 @@ package com.adams.swizdao.response
 	import com.adams.swizdao.util.GetVOUtil;
 	
 	import mx.collections.ArrayCollection;
-	import mx.collections.ArrayList;
-	import mx.collections.IList;
 	import mx.rpc.AsyncToken;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
@@ -55,11 +53,9 @@ package com.adams.swizdao.response
 		public var signalSeq:SignalSequence;
 		
 		[Inject]
-		public var currentInstance:CurrentInstance; 
+		public var currentInstance:CurrentInstance;  
 		
-		public function AbstractResult()
-		{
-		} 
+		protected var resultObj:Object;
 		
 		private var _token:AsyncToken = new AsyncToken();
 		public function get token():AsyncToken {
@@ -82,7 +78,6 @@ package com.adams.swizdao.response
 		 * the SignalSequence is invoked onSignalDone(), to proceed with next queued signals.
 		 * </p>
 		 */
-		protected var resultObj:Object
 		protected function resultHandler( rpcevt:ResultEvent, prevSignal:AbstractSignal = null ):void { 
 			currentInstance.waitingForServerResponse = false;
 			var currentVO:IValueObject;

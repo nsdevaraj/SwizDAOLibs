@@ -18,11 +18,7 @@ package com.adams.swizdao.util
 	import mx.utils.UIDUtil;
 	
 	public class FileNameSplitter
-	{
-		public function FileNameSplitter()
-		{
-		} 
-		//@TODO
+	{ 
 		public static function splitFileName(str:String):Object{
 			var obj:Object = new Object();
 			var strlength:int = str.length;

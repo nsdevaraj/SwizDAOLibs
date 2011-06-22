@@ -1,18 +1,18 @@
 /*
- * Copyright 2010 @nsdevaraj
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License. You may obtain a copy of the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
+* Copyright 2010 @nsdevaraj
+* 
+* Licensed under the Apache License, Version 2.0 (the "License"); you may not
+* use this file except in compliance with the License. You may obtain a copy of
+* the License. You may obtain a copy of the License at
+* 
+* http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+* WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+* License for the specific language governing permissions and limitations under
+* the License.
+*/
 package com.adams.swizdao.model.collections
 {
 	import com.adams.swizdao.util.ObjectUtils;
@@ -39,42 +39,42 @@ package com.adams.swizdao.model.collections
 		private var _findByIdArr:Array =[];
 		private var _findAll:Boolean;
 		private var _sortString:String;
-
+		
 		public function get findByPushIdArr():Array
 		{
 			return _findByPushIdArr;
 		}
-
+		
 		public function set findByPushIdArr(value:Array):void
 		{
 			_findByPushIdArr = value;
 		}
-
+		
 		public function get findByIdArr():Array
 		{
 			return _findByIdArr;
 		}
-
+		
 		public function set findByIdArr(value:Array):void
 		{
 			_findByIdArr = value;
 		}
-
+		
 		public function get findAll():Boolean
 		{
 			return _findAll;
 		}
-
+		
 		public function set findAll(value:Boolean):void
 		{
 			_findAll = value;
 		}
-
+		
 		public function get sortString():String
 		{
 			return _sortString;
 		}
-
+		
 		public function set sortString(value:String):void
 		{
 			_sortString = value;
@@ -122,7 +122,7 @@ package com.adams.swizdao.model.collections
 		public function get length():int {
 			return items.length;
 		}
-		 
+		
 		/**
 		 * Returns the index of the given element in the items collection
 		 */ 
@@ -217,6 +217,12 @@ package com.adams.swizdao.model.collections
 				for( var i:int = 0; i < newList.length; i++ ) {
 					addItem( newList.getItemAt( i ) );
 				}
+				for( var j:int = 0; j < items.length; j++ ) {
+					var isExistingItem:Object = findExistingItem ( items.getItemAt(j), newList );
+					if(!isExistingItem){
+						removeItem(items.getItemAt(j));
+					}
+				}
 			}
 		}
 		
@@ -278,8 +284,9 @@ package com.adams.swizdao.model.collections
 		/**
 		 * Returns a Object from this collection that matches the passed Object.
 		 */ 
-		public function findExistingItem( item:Object ):Object {
-			for each( var existingItem:Object in items ) {
+		public function findExistingItem( item:Object, itemList:IList =null ):Object {
+			if(itemList==null) itemList = items;
+			for each( var existingItem:Object in itemList ) {
 				if( existingItem[ sortString ] == item[ sortString ] ) {
 					return existingItem;
 				}    

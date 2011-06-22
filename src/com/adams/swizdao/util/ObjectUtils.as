@@ -1,28 +1,26 @@
 /*
- * Copyright 2010 @nsdevaraj
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License. You may obtain a copy of the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
+* Copyright 2010 @nsdevaraj
+* 
+* Licensed under the Apache License, Version 2.0 (the "License"); you may not
+* use this file except in compliance with the License. You may obtain a copy of
+* the License. You may obtain a copy of the License at
+* 
+* http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+* WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+* License for the specific language governing permissions and limitations under
+* the License.
+*/
 package com.adams.swizdao.util
 {
 	import com.adams.swizdao.model.vo.IValueObject;
 	
 	import flash.utils.ByteArray;
-	import flash.utils.describeType; 
-	import mx.utils.ObjectUtil;
+	import flash.utils.describeType;
 	
 	import org.osflash.signals.Signal;
-	import org.swizframework.reflection.TypeDescriptor;
 	
 	import spark.components.DropDownList;
 	import spark.components.Form;
@@ -30,7 +28,7 @@ package com.adams.swizdao.util
 	import spark.components.Label;
 	import spark.components.TextArea;
 	import spark.components.TextInput;
-
+	
 	public class ObjectUtils
 	{ 
 		public static var buddySignal : Signal = new Signal();
@@ -71,13 +69,13 @@ package com.adams.swizdao.util
 				switch( itemName ) {
 					case "variable":
 						a.push( item.@name.toString() );
-					break;
+						break;
 					case "accessor":
 						var access:String = item.@access;
 						if( ( access == "readwrite" ) || ( access == "writeonly" ) ) {
 							a.push( item.@name.toString() );
 						}
-					break;
+						break;
 				}
 			}
 			
@@ -134,9 +132,9 @@ package com.adams.swizdao.util
 						target[str] = new Date(source[str]);
 					}catch(er:Error){
 						if(Object(target).hasOwnProperty(str))
-						target[str]= StrToByteArray(source[str]);
+							target[str]= StrToByteArray(source[str]);
 					}
-			 	} 
+				} 
 			}
 			return target;
 		}
@@ -157,7 +155,7 @@ package com.adams.swizdao.util
 							throw new Error("Not a Text");
 						}catch(er:Error){
 							if(obj.hasOwnProperty([uiComp.id]))
-							if(obj[uiComp.id])uiComp.text = obj[uiComp.id].toString(); 
+								if(obj[uiComp.id])uiComp.text = obj[uiComp.id].toString(); 
 						}
 					} 
 				}
@@ -166,7 +164,7 @@ package com.adams.swizdao.util
 		public static function getDropListObject(source:DropDownList,target:IValueObject):IValueObject
 		{
 			if(source.dataProvider)if(source.dataProvider.length>0)if(source.selectedIndex!=-1)
-			target[source.id] = source.dataProvider.getItemAt(source.selectedIndex)[source.name]; 
+				target[source.id] = source.dataProvider.getItemAt(source.selectedIndex)[source.name]; 
 			return target;
 		} 
 	}
