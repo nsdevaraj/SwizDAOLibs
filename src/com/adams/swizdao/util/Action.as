@@ -28,6 +28,7 @@ package com.adams.swizdao.util
 		public static const DELETE:String = 'deleteById';
 		public static const GET_COUNT:String = 'count';
 		public static const GET_LIST:String = 'getList';
+		public static const ADD_LIST:String = 'getaddList';
 		public static const SQL_FINDALL:String = 'SQLFindAll';
 		public static const BULK_UPDATE:String = 'bulkUpdate';
 		public static const DELETE_ALL:String = 'deleteAll';

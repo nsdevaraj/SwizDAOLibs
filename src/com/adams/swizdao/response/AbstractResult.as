@@ -156,6 +156,9 @@ package com.adams.swizdao.response
 				case Action.GET_COUNT:
 					//collection.length = resultObj as int;
 					break;
+				case Action.ADD_LIST:
+					collection.addItems( resultObj as ArrayCollection );
+					break;
 				case Action.GET_LIST:
 					collection.updateItems( resultObj as ArrayCollection );
 					break;
