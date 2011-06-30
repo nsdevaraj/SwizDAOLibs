@@ -197,7 +197,7 @@ package com.adams.swizdao.views.mediators
 		 * </p>
 		 */
 		protected function setViewDataBindings():void 	{
-			showEffect();
+			//showEffect();
 		}		
 		
 		/**
