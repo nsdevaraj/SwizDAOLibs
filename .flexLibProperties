@@ -2,6 +2,7 @@
 <flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
   <includeClasses>
     <classEntry path="com.adams.swizdao.views.mediators.IViewMediator"/>
+    <classEntry path="com.adams.swizdao.util.ErrorHandler"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

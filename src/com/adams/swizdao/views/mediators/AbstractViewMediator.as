@@ -18,6 +18,7 @@ package com.adams.swizdao.views.mediators
 	
 	import com.adams.swizdao.model.vo.SignalVO;
 	import com.adams.swizdao.response.SignalSequence;
+	import com.adams.swizdao.util.ErrorHandler;
 	
 	import flash.events.Event;
 	import flash.net.LocalConnection;
@@ -197,6 +198,8 @@ package com.adams.swizdao.views.mediators
 		 * </p>
 		 */
 		protected function setViewDataBindings():void 	{
+			var err:ErrorHandler = ErrorHandler.getIntance();
+			err.init(_view);
 			//showEffect();
 		}		
 		
