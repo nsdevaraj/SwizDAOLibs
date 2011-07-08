@@ -24,6 +24,7 @@ package com.adams.swizdao.response
 	import com.adams.swizdao.signals.PushRefreshSignal;
 	import com.adams.swizdao.signals.ResultSignal;
 	import com.adams.swizdao.util.Action;
+	import com.adams.swizdao.util.ErrorHandler;
 	import com.adams.swizdao.util.GetVOUtil;
 	
 	import mx.collections.ArrayCollection;
@@ -182,6 +183,12 @@ package com.adams.swizdao.response
 		 */
 		private function faultHandler( event:FaultEvent ):void {
 			trace( serviceSignal.currentSignal.action + ' ' + serviceSignal.currentSignal.destination + ' failed ' + event );
+			var error:Object = new Object();
+			error.type = serviceSignal.currentSignal.action;
+			error.title = serviceSignal.currentSignal.destination;
+			error.message = event.message;
+			var err:ErrorHandler = ErrorHandler.getIntance();
+			err.addNewError(error);
 			signalSeq.onSignalDone();
 		}
 	}

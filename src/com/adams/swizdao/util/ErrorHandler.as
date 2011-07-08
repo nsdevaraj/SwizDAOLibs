@@ -155,8 +155,14 @@ package com.adams.swizdao.util{
 			}
 			if(data.message == null)
 				data.message = "";
+			addNewError(data);
+		}
 			
-			
+		public function addNewError(dataObj:Object):void{
+			var data: ErrorData = new ErrorData();
+			data.type = dataObj.type;
+			data.title = dataObj.title;
+			data.message = dataObj.message;
 			_errors.push(data);
 			_errorIndex = _errors.length - 1;
 			
