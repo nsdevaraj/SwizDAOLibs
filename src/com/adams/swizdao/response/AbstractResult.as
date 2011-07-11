@@ -134,6 +134,7 @@ package com.adams.swizdao.response
 						httpEntry.fill(item)
 						collectItems.addItem(httpEntry);
 					}
+					currentSignal.currentHTTPCollection = collectItems;
 					collection.addItems( collectItems );
 					break;
 				case Action.CREATE:

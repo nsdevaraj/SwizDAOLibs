@@ -43,6 +43,7 @@ package com.adams.swizdao.model.vo
 		private var _startIndex:int;
 		private var _endIndex:int;
 		private var _currentProcessedCollection:IList;
+		private var _currentHTTPCollection:IList;
 		public var clazz:Class;
 		public var time:Date;
 		/**
@@ -216,6 +217,15 @@ package com.adams.swizdao.model.vo
 		public function set currentProcessedCollection(value:IList):void
 		{
 			_currentProcessedCollection = value;
+		}
+		public function get currentHTTPCollection():IList
+		{
+			return _currentHTTPCollection;
+		}
+		
+		public function set currentHTTPCollection(value:IList):void
+		{
+			_currentHTTPCollection = value;
 		}
 	}
 }
