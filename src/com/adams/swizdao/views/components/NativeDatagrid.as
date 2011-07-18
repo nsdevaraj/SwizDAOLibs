@@ -15,10 +15,9 @@
 */
 package com.adams.swizdao.views.components
 {
-	
-	import mx.controls.DataGrid;
-	
 	import org.osflash.signals.Signal;
+	
+	import spark.components.DataGrid;
 	
 	public class NativeDatagrid extends DataGrid
 	{

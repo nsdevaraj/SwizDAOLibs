@@ -23,6 +23,15 @@ package com.adams.swizdao.util
 		public static function trimSpace(v:String):String{
 			return v.replace(/\s+/g, '');
 		} 
+		public static function removeExtraWhitespace(p_string:String):String {
+			if (p_string == null) { return ''; }
+			var str:String = trim(p_string);
+			return str.replace(/\s+/g, ' ');
+		}
+		public static function trim(p_string:String):String {
+			if (p_string == null) { return ''; }
+			return p_string.replace(/^\s+|\s+$/g, '');
+		}
 		public static function specialtrim(v:String):String{ 
 			return v.replace(STrimExp, "_");
 		}
