@@ -11,6 +11,12 @@ package com.adams.swizdao.model.vo
 			return getAllStatement;
 		}
 		
+		public function createTable( tableName:String, args:String ):SQLStatement {
+			var getAllStatement:SQLStatement = new SQLStatement(); 
+			getAllStatement.text = "CREATE TABLE IF NOT EXISTS " + tableName+ " ("+ args +")";
+			return getAllStatement;
+		}
+		
 		public function getItem( tableName:String, propertyName:String, value:Object ):SQLStatement {
 			var getStatement:SQLStatement = new SQLStatement();
 			getStatement.text = "SELECT * FROM " + tableName + " WHERE " + propertyName +" = " + value;

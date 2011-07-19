@@ -1,6 +1,5 @@
 package com.adams.swizdao.model
 {
-	
 	import com.adams.swizdao.dao.IAbstractDAO;
 	import com.adams.swizdao.model.vo.IValueObject;
 	import com.adams.swizdao.model.vo.LocalSQLStatements;
@@ -39,7 +38,6 @@ package com.adams.swizdao.model
 		public function LocalDbAccess()
 		{
 			_resultSignal = new Signal();
-			databaseFile = File.applicationDirectory.resolvePath( "LegrandHome.db" );
 			statement = new LocalSQLStatements();
 			openSQLConnection();
 		}
@@ -53,17 +51,28 @@ package com.adams.swizdao.model
 			connection.open( databaseFile );
 		}
 		
-		protected function connectionOpenHandler( event:SQLEvent ):void {
-			connection.loadSchema();
-			dbSchema = connection.getSchemaResult();
+		protected function connectionOpenHandler( event:SQLEvent=null ):void {
+			try{
+				connection.loadSchema();
+				dbSchema = connection.getSchemaResult();
+			}catch(er:Error){
+				createSchema();
+			}
+		}
+		
+		protected function createSchema():void {
+			
 		}
 		
 		protected function connectionOpenErrorHandler( event:SQLErrorEvent ):void {
 			
 		}
 		
-		public function createTable( tableName:String ):void {
-			
+		public function createTable( tableName:String , args:String ):void {
+			var readStatement:SQLStatement;
+			readStatement = statement.createTable( tableName, args );
+			readStatement.sqlConnection = connection;
+			readStatement.execute();
 		}
 		
 		public function readList( tableName:String, dao:IAbstractDAO, clz:Class, signal:SignalVO, property:String = null, value:Object = null ):void {
