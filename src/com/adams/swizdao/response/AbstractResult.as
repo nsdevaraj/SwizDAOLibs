@@ -145,6 +145,7 @@ package com.adams.swizdao.response
 					collection.updateItem( currentSignal.valueObject, resultObj );
 					break;
 				case Action.READ:
+				case Action.READMAX:
 				case Action.FINDBY_NAME: 
 				case Action.FIND_ID: 
 				case Action.FINDBY_ID:  

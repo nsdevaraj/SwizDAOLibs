@@ -146,6 +146,18 @@ package com.adams.swizdao.dao
 			return delegate.token;
 		}
 		/**
+		 * Whenever an read action is called by AbstractDAO.
+		 * invokeAction initates to perform Generic read Action
+		 * <p>
+		 * The VO read function for Generic DAO
+		 * </p>
+		 */		
+		public function readMaxId():AsyncToken {
+			invoke();
+			delegate.token = remoteService.findMaxTaskId();
+			return delegate.token;
+		}
+		/**
 		 * Whenever an create action is called by AbstractDAO.
 		 * invokeAction initates to perform Generic Create Action
 		 * <p>

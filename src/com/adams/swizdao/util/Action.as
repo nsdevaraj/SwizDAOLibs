@@ -21,6 +21,7 @@ package com.adams.swizdao.util
 		public static const UPDATE:String = 'update';
 		public static const DIRECTUPDATE:String = 'directupdate';
 		public static const READ:String = 'Read';
+		public static const READMAX:String = 'findMaxTaskId';
 		public static const FIND_ID:String = 'findId';
 		public static const FINDBY_NAME:String = 'findByName';
 		public static const FINDBY_ID:String = 'findById';
