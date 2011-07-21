@@ -30,6 +30,8 @@ package com.adams.swizdao.model
 		protected var _listUpdate:Boolean;
 		private var _listCollection:ArrayCollection;
 		
+		public static const FROM_LOCAL:String = "fromLocal";
+		
 		private var _resultSignal:Signal;
 		public function get resultSignal():Signal {
 			return _resultSignal;
@@ -92,6 +94,7 @@ package com.adams.swizdao.model
 				resultObj = makingResultHandlerObject( readAllResult.data, clz );
 			}
 			signal.processor.processCollection( dao.collection.items );
+			signal.description = LocalDbAccess.FROM_LOCAL;
 			_resultSignal.dispatch( resultObj, signal );
 		}
 		
@@ -112,6 +115,7 @@ package com.adams.swizdao.model
 				}
 			}
 			signal.processor.processCollection( dao.collection.items );
+			signal.description = LocalDbAccess.FROM_LOCAL;
 			_resultSignal.dispatch( resultObj, signal );
 		}
 		
@@ -152,6 +156,7 @@ package com.adams.swizdao.model
 			deleteStatement.execute();
 			dao.collection.removeItem( item );
 			signal.processor.processCollection( dao.collection.items );
+			signal.description = LocalDbAccess.FROM_LOCAL;
 			_resultSignal.dispatch( null, signal );
 		}
 		
@@ -161,6 +166,7 @@ package com.adams.swizdao.model
 			deleteAllStatement.execute();
 			dao.collection.removeAll();
 			signal.processor.processCollection( dao.collection.items );
+			signal.description = LocalDbAccess.FROM_LOCAL;
 			_resultSignal.dispatch( null, signal );
 		}
 		
@@ -168,6 +174,7 @@ package com.adams.swizdao.model
 			var deleteAllStatement:SQLStatement = statement.deleteList( tableName );
 			deleteAllStatement.sqlConnection = connection;
 			deleteAllStatement.execute();
+			signal.description = LocalDbAccess.FROM_LOCAL;
 			_resultSignal.dispatch( null, signal );
 		}
 		
