@@ -172,6 +172,11 @@ package com.adams.swizdao.dao
 						secureDAO();
 						return delegate.token;
 						break;
+					case Action.FILEDELETE:
+						remoteService.destination = ArrayUtil.FILEDAO;
+						delegate.token = remoteService.deleteSingleFile(obj.name);
+						return delegate.token;
+						break;
 					case Action.FILECONVERT:
 						remoteService.destination = ArrayUtil.FILEDAO;
 						delegate.token = remoteService.doConvert(obj.name,obj.emailBody);

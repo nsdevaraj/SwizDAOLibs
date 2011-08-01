@@ -50,6 +50,7 @@ package com.adams.swizdao.util
 		public static const CREATEPROJECT:String = 'createOracleNewProject';
 		public static const CREATENAVTASK:String = 'createNavigationTasks';
 		public static const GETPROJECTSLIST:String = 'findPersonsListCount';
+		public static const FILEDELETE:String = 'deleteFile';
 		public static const FILECONVERT:String = 'doConvert';
 		public static const FILEDOWNLOAD:String = 'downLoadFile';
 		public static const FILEMOVE:String = 'copyDirectory';
