@@ -37,9 +37,9 @@ package com.briankotek.mediateview
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	import flash.utils.*;
-
+	
 	import mx.core.UIComponent;
-
+	
 	import org.swizframework.core.Bean;
 	import org.swizframework.core.SwizConfig;
 	import org.swizframework.processors.BaseMetadataProcessor;
@@ -107,8 +107,14 @@ package com.briankotek.mediateview
 			}
 			else if ( mediateViewTag.viewId )
 			{
-				mediatorsByViewId[ mediateViewTag.viewId ] ||= [];
-				mediatorsByViewId[ mediateViewTag.viewId ].push( new ViewMediator( mediateViewTag, beanMethod ) );
+				var viewArr:Array = mediateViewTag.viewId.split(',');
+				for each(var viewId:String in viewArr){
+					var viewClassz: Class = findViewClassFromName( viewId );
+					mediatorsByViewType[ viewClassz ] ||= [];
+					mediatorsByViewType[ viewClassz ].push( new ViewMediator( mediateViewTag, beanMethod ) );
+			/*	mediatorsByViewId[ mediateViewTag.viewId ] ||= [];
+				mediatorsByViewId[ mediateViewTag.viewId ].push( new ViewMediator( mediateViewTag, beanMethod ) );*/
+				}
 			}
 
 			// Don't set up a listener on the dispatcher until we need to.
@@ -200,7 +206,8 @@ package com.briankotek.mediateview
 
 			if ( !result )
 			{
-				throw new Error( "MediateViewProcessor cannot locate Class for view of type " + view + "." );
+				//throw new Error
+				trace( "MediateViewProcessor cannot locate Class for view of type " + view + "." );
 			}
 			return result;
 		}

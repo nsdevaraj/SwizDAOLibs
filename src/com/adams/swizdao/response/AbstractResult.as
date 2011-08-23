@@ -153,7 +153,7 @@ package com.adams.swizdao.response
 					collection.modifyItems( resultObj as ArrayCollection );
 					break;
 				case Action.DELETE:
-					ArrayCollection( collection.items ).refresh();
+					if(collection.items)ArrayCollection( collection.items ).refresh();
 					collection.removeItem( currentSignal.valueObject );
 					break;
 				case Action.GET_COUNT:

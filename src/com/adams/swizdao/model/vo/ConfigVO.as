@@ -37,7 +37,18 @@ package com.adams.swizdao.model.vo
 		private var _SmtpTeamEmail:String
 		private var _allReports:Boolean
 		private var _VersionServer:String;		
-		
+		private var _sessionId:String;
+
+		public function get sessionId():String
+		{
+			return _sessionId;
+		}
+
+		public function set sessionId(value:String):void
+		{
+			_sessionId = value;
+		}
+
 		public function get dbserver():String
 		{
 			return _dbserver;
