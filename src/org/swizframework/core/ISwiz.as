@@ -28,6 +28,12 @@ package org.swizframework.core
 		// public properties
 		// ========================================
 		
+		/**
+		 * Array of AOP Advice classes.
+		 */ 
+		function get aop():Array;
+		function set aop( value:Array ):void;
+		
 		function get catchViews():Boolean;
 		function set catchViews( value:Boolean ):void;
 		

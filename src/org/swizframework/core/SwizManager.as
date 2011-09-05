@@ -33,9 +33,11 @@ package org.swizframework.core
 		{
 			swizzes.push( swiz );
 			
+			/*
 			for each( var p:IProcessor in swiz.processors )
 				if( p is IMetadataProcessor )
 					metadataNames = metadataNames.concat( IMetadataProcessor( p ).metadataNames );
+			*/
 		}
 		
 		public static function removeSwiz( swiz:ISwiz ):void

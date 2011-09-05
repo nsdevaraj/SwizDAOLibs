@@ -181,7 +181,12 @@ package com.adams.swizdao.dao
 						delegate.token = remoteService.ExcelConversion(obj.list);
 						secureDAO();
 						return delegate.token;
-						break;					
+						break;	
+					case Action.GETSESSIONJAVA:
+						delegate.token = remoteService.getCurrentSession();
+						secureDAO();
+						return delegate.token;
+						break;				
 					case Action.FILEDELETE:
 						remoteService.destination = ArrayUtil.FILEDAO;
 						delegate.token = remoteService.deleteSingleFile(obj.name);

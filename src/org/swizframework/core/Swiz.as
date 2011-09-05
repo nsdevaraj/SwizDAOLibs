@@ -20,6 +20,7 @@ package org.swizframework.core
 	import flash.events.IEventDispatcher;
 	import flash.system.ApplicationDomain;
 	
+	import org.swizframework.aop.framework.AutoProxyProcessor;
 	import org.swizframework.events.SwizEvent;
 	import org.swizframework.processors.DispatcherProcessor;
 	import org.swizframework.processors.EventHandlerProcessor;
@@ -34,7 +35,6 @@ package org.swizframework.core
 	import org.swizframework.utils.logging.SwizLogger;
 	
 	[DefaultProperty( "beanProviders" )]
-	[ExcludeClass]
 	
 	/**
 	 * Core framework class that serves as an IoC container rooted
@@ -51,6 +51,7 @@ package org.swizframework.core
 		protected var _dispatcher:IEventDispatcher;
 		protected var _globalDispatcher:IEventDispatcher;
 		protected var _domain:ApplicationDomain;
+		protected var _aop:Array;
 		
 		protected var _config:ISwizConfig;
 		protected var _beanFactory:IBeanFactory;
@@ -65,6 +66,41 @@ package org.swizframework.core
 		// ========================================
 		// public properties
 		// ========================================
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function get aop():Array
+		{
+			return _aop;
+		}
+		
+		public function set aop( value:Array ):void
+		{
+			// store aspect array
+			_aop = value;
+			
+			// first make sure that there is an AopProcessor in the _processors array
+			var aopProcessor:AutoProxyProcessor = null;
+			
+			for each( var processor:IProcessor in processors )
+			{
+				if( processor is AutoProxyProcessor )
+				{
+					aopProcessor = AutoProxyProcessor( processor );
+					break;
+				}
+			}
+			
+			if( aopProcessor == null )
+			{
+				aopProcessor = new AutoProxyProcessor();
+				processors.push( aopProcessor );
+			}
+			
+			// then add the advisors to the processor
+			aopProcessor.advice = value;
+		}
 		
 		/**
 		 * @inheritDoc
@@ -284,9 +320,7 @@ package org.swizframework.core
 		 * @inheritDoc
 		 */
 		public function init():void
-		{
-			SwizManager.addSwiz( this );
-			
+		{	
 			if( dispatcher == null )
 			{
 				dispatcher = this;
@@ -330,9 +364,11 @@ package org.swizframework.core
 				globalDispatcher = dispatcher;
 			}
 			
+			initializeProcessors();
+			
 			constructProviders();
 			
-			initializeProcessors();
+			SwizManager.addSwiz( this );
 			
 			beanFactory.setUp( this );
 			
@@ -425,10 +461,11 @@ package org.swizframework.core
 		{
 			if( event.swiz != null  && event.swiz.parentSwiz == null )
 			{
+				event.stopImmediatePropagation();
 				event.swiz.parentSwiz = this;
 			}
 			
-			logger.info( "Received SwizCreationEvent, set self to parent." );
+			logger.info( "Received SwizEvent.CREATED, set self to parent." );
 		}
 	}
 }

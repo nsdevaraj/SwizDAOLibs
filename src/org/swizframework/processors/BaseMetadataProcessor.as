@@ -21,6 +21,7 @@ package org.swizframework.processors
 	import org.swizframework.core.Bean;
 	import org.swizframework.core.IBeanFactory;
 	import org.swizframework.core.ISwiz;
+	import org.swizframework.core.SwizManager;
 	import org.swizframework.reflection.IMetadataTag;
 	
 	/**
@@ -76,6 +77,8 @@ package org.swizframework.processors
 		public function BaseMetadataProcessor( metadataNames:Array, metadataClass:Class = null )
 		{
 			super();
+			
+			SwizManager.metadataNames = SwizManager.metadataNames.concat( metadataNames );
 			
 			this._metadataNames = metadataNames;
 			this._metadataClass = metadataClass;

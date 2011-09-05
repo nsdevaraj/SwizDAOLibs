@@ -31,7 +31,6 @@ package com.adams.swizdao.controller
 		{
 			super();
 		}
-		
 		public var unAuthRo:NativeRemoteObject;
 		public var authRo:NativeRemoteObject; 
 		public var producer:NativeProducer = new NativeProducer(); 
