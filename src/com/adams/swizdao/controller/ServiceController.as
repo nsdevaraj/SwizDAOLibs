@@ -22,7 +22,7 @@ package com.adams.swizdao.controller
 	
 	import mx.messaging.channels.AMFChannel;
 	
-	import org.swizframework.controller.AbstractController;
+	import org.swizframework.controller.AbstractController; 
 	
 	public class ServiceController extends AbstractController 
 	{	

@@ -21,7 +21,7 @@ package com.nsdevaraj.swiz.processors {
 	
 	import org.osflash.signals.IDeluxeSignal;
 	import org.osflash.signals.ISignal;
-	import org.osflash.signals.Signal;
+	import org.osflash.signals.Signal;  
 	import org.swizframework.core.Bean;
 	import org.swizframework.processors.BaseMetadataProcessor;
 	import org.swizframework.reflection.BaseMetadataTag;
