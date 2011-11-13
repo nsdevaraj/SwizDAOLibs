@@ -207,7 +207,7 @@ package com.briankotek.mediateview
 			if ( !result )
 			{
 				//throw new Error
-				trace( "MediateViewProcessor cannot locate Class for view of type " + view + "." );
+				//trace( "MediateViewProcessor cannot locate Class for view of type " + view + "." );
 			}
 			return result;
 		}
