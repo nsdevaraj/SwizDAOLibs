@@ -170,7 +170,7 @@ package com.adams.swizdao.util{
 		}
 		
 		private function showError() : void {
-			if (isActive()) {
+			if (isActive() && false) {
 				if (_container == null) {
 					initView();
 					DisplayObjectContainer(_stage.getChildAt(0)).addChild(_container);
@@ -369,6 +369,7 @@ package com.adams.swizdao.util{
 			var f : FileReference = new FileReference();
 			var d : Date = new Date();
 			f.save(getLogs(), getSWFName() + ".log." + d.fullYear + "-" + format2(d.month + 1) + "-" + format2(d.date) + d.time + ".txt");
+			_errors = new Vector.<ErrorData>();
 		}
 		
 		private function onClickNext(event : MouseEvent) : void {

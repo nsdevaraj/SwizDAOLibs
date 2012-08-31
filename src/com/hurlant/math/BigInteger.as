@@ -87,7 +87,7 @@ package com.hurlant.math
 			var r:String = "";
 			var i:int = t;
 			var p:int = DB-(i*DB)%k;
-			if (i-->0) {
+			//if (i-->0) {
 				if (p<DB && (d=a[i]>>p)>0) {
 					m = true;
 					r = d.toString(36);
@@ -110,7 +110,7 @@ package com.hurlant.math
 						r += d.toString(36);
 					}
 				}
-			}
+			//}
 			return m?r:"0";
 		}
 		public function toArray(array:ByteArray):uint {
@@ -121,7 +121,7 @@ package com.hurlant.math
 			var p:int = DB-(i*DB)%k;
 			var m:Boolean = false;
 			var c:int = 0;
-			if (i-->0) {
+			//if (i-->0) {
 				if (p<DB && (d=a[i]>>p)>0) {
 					m = true;
 					array.writeByte(d);
@@ -146,7 +146,7 @@ package com.hurlant.math
 						c++;
 					}
 				}
-			}
+			//}
 			return c;
 		}
 		/**
@@ -770,12 +770,12 @@ package com.hurlant.math
 		 */
 		public function toByteArray():ByteArray {
 			var i:int = t;
-			var r:ByteArray = new ByteArray;
+			var r:ByteArray = new ByteArray();
 			r[0] = s;
 			var p:int = DB-(i*DB)%8;
 			var d:int;
 			var k:int=0;
-			if (i-->0) {
+			//if (i-->0) {
 				if (p<DB && (d=a[i]>>p)!=(s&DM)>>p) {
 					r[k++] = d|(s<<(DB-p));
 				}
@@ -794,7 +794,7 @@ package com.hurlant.math
 					if (k==0 && (s&0x80)!=(d&0x80)) ++k;
 					if (k>0 || d!=s) r[k++] = d;
 				} 
-			}
+			//}
 			return r;
 		}
 

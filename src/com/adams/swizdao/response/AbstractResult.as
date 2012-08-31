@@ -57,7 +57,7 @@ package com.adams.swizdao.response
 		[Inject]
 		public var currentInstance:CurrentInstance;  
 		
-		protected var resultObj:Object;
+		public var resultObj:Object;
 		
 		private var _token:AsyncToken = new AsyncToken();
 		public function get token():AsyncToken {
@@ -125,6 +125,20 @@ package com.adams.swizdao.response
 		 */
 		public function updateCollection( collection:ICollection, currentSignal:SignalVO, resultObj:Object ):ICollection {
 			switch( currentSignal.action ) {
+				case Action.E4X_REQUEST: 
+					var xmlList:XMLList;
+					var collect4xItems:ArrayCollection = new ArrayCollection(); 
+					xmlList = resultObj..brand//currentSignal.receivers[0];
+					for each (var property:XML in xmlList)
+					{
+						var e4xObj:Object= GetVOUtil.xmlToObject(property);
+						var http4xEntry:IValueObject= new ClassFactory(currentSignal.clazz).newInstance();
+						http4xEntry.fill(e4xObj[currentSignal.receivers[1]]);
+						collect4xItems.addItem(http4xEntry);
+					}   
+					currentSignal.currentHTTPCollection = collect4xItems;
+					collection.addItems( collect4xItems );
+					break;
 				case Action.HTTP_REQUEST:
 					var rawResult:Object = GetVOUtil.xmlToObject( resultObj as XML);
 					var result:Object = GetVOUtil.parseHTTPResult(rawResult,currentSignal.receivers);

@@ -2,10 +2,7 @@ package com.adams.swizdao.views.mediators
 {
 	import com.adams.swizdao.model.vo.SignalVO;
 	
-	import flash.events.Event;
-	
 	import mx.core.UIComponent;
-	import mx.events.FlexEvent;
 
 	public interface IViewMediator
 	{

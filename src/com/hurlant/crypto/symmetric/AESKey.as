@@ -191,17 +191,17 @@ package com.hurlant.crypto.symmetric
 		0x00, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36];
 		static private var Sbox:ByteArray;
 		static private var InvSbox:ByteArray;
-		static private var Xtime2Sbox:ByteArray
-		static private var Xtime3Sbox:ByteArray
+		static private var Xtime2Sbox:ByteArray;
+		static private var Xtime3Sbox:ByteArray;
 		static private var Xtime2:ByteArray;
 		static private var Xtime9:ByteArray;
 		static private var XtimeB:ByteArray;
 		static private var XtimeD:ByteArray;
 		static private var XtimeE:ByteArray;
+		static private var i:uint;
 		static private var Rcon:ByteArray;
 		// static initializer
 		{
-			static private var i:uint;
 			Sbox = new ByteArray;
 			InvSbox = new ByteArray;
 			Xtime2Sbox = new ByteArray;
