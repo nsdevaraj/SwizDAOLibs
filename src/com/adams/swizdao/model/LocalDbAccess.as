@@ -1,10 +1,14 @@
-package com.adams.swizdao.model
-{
+package com.adams.swizdao.model {
 	import com.adams.swizdao.dao.IAbstractDAO;
 	import com.adams.swizdao.model.vo.IValueObject;
 	import com.adams.swizdao.model.vo.LocalSQLStatements;
 	import com.adams.swizdao.model.vo.SignalVO;
-	
+
+	import org.osflash.signals.Signal;
+
+	import mx.collections.ArrayCollection;
+	import mx.collections.IList;
+
 	import flash.data.SQLColumnSchema;
 	import flash.data.SQLConnection;
 	import flash.data.SQLResult;
@@ -14,11 +18,6 @@ package com.adams.swizdao.model
 	import flash.events.SQLErrorEvent;
 	import flash.events.SQLEvent;
 	import flash.filesystem.File;
-	
-	import mx.collections.ArrayCollection;
-	import mx.collections.IList;
-	
-	import org.osflash.signals.Signal;
 	
 	public class LocalDbAccess 
 	{

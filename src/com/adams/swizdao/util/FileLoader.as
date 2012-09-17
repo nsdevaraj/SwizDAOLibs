@@ -1,5 +1,6 @@
-package com.adams.swizdao.util
-{
+package com.adams.swizdao.util {
+	import org.osflash.signals.Signal;
+
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Loader;
@@ -15,8 +16,6 @@ package com.adams.swizdao.util
 	import flash.ui.Multitouch;
 	import flash.utils.ByteArray;
 	import flash.utils.IDataInput;
-	
-	import org.osflash.signals.Signal;
 	
 	public class FileLoader
 	{

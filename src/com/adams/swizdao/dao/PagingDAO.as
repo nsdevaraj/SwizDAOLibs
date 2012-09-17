@@ -13,8 +13,7 @@
 * License for the specific language governing permissions and limitations under
 * the License.
 */
-package com.adams.swizdao.dao
-{
+package com.adams.swizdao.dao {
 	import com.adams.swizdao.controller.ServiceController;
 	import com.adams.swizdao.model.collections.ICollection;
 	import com.adams.swizdao.model.processor.IVOProcessor;
@@ -23,7 +22,7 @@ package com.adams.swizdao.dao
 	import com.adams.swizdao.response.SignalSequence;
 	import com.adams.swizdao.util.Action;
 	import com.adams.swizdao.util.ArrayUtil;
-	
+
 	import mx.rpc.AsyncToken;
 	import mx.rpc.remoting.mxml.RemoteObject;
 	

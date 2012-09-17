@@ -472,7 +472,7 @@ package com.danielfreeman.madcomponents {
 		protected function substitute(data:XML):void {
 			for each(var item:XML in data.children()) {
 				if (item.hasSimpleContent()) {
-					var obj:*=UIForm(_parent).findViewById(item.toString());
+					var obj:Object=UIForm(_parent).findViewById(item.toString());
 					if (obj) {
 						if (_sendBy=="xml")
 							item.replace(0,obj.text);

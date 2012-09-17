@@ -1,6 +1,4 @@
-package com.adams.swizdao.model.vo
-{
-	import flash.data.SQLConnection;
+package com.adams.swizdao.model.vo {
 	import flash.data.SQLStatement;
 	
 	public class LocalSQLStatements

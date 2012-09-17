@@ -31,20 +31,17 @@
  * When a bean is torn down, references to it are removed from this processor, to allow for proper garbage collection of torn down beans.
  *
  */
-package com.briankotek.mediateview
-{
-	import flash.display.DisplayObject;
-	import flash.events.Event;
-	import flash.events.IEventDispatcher;
-	import flash.utils.*;
-	
-	import mx.core.UIComponent;
-	
+package com.briankotek.mediateview {
 	import org.swizframework.core.Bean;
 	import org.swizframework.core.SwizConfig;
 	import org.swizframework.processors.BaseMetadataProcessor;
 	import org.swizframework.reflection.IMetadataTag;
 
+	import flash.display.DisplayObject;
+	import flash.events.Event;
+	import flash.events.IEventDispatcher;
+	import flash.utils.*;
+	import mx.core.UIComponent;
 	public class MediateViewProcessor extends BaseMetadataProcessor
 	{
 		protected static const MEDIATE_VIEW : String = "MediateView";

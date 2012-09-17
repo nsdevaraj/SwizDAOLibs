@@ -1,5 +1,8 @@
-package com.adams.swizdao.util
-{
+package com.adams.swizdao.util {
+	import cmodule.as3_jpeg_wrapper.CLibInit;
+
+	import mx.core.UIComponent;
+
 	import flash.display.BitmapData;
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
@@ -7,10 +10,6 @@ package com.adams.swizdao.util
 	import flash.geom.Matrix;
 	import flash.geom.Rectangle;
 	import flash.utils.ByteArray;
-	
-	import mx.core.UIComponent;
-	
-	import cmodule.as3_jpeg_wrapper.CLibInit;
 
 	public class FileExporter {
 			
