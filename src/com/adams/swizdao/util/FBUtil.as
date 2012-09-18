@@ -22,8 +22,8 @@ package com.adams.swizdao.util {
 	
 	public class FBUtil
 	{
-	    public static  var facebookWebView : StageWebView;
-		public static  var mobileCam : CameraUI;
+	    public static  var facebookWebView : Object;
+		public static  var mobileCam : Object;
 		
 		public static function initMobileCam():void{
 			mobileCam = new CameraUI();
@@ -33,8 +33,8 @@ package com.adams.swizdao.util {
 			facebookWebView = new StageWebView();
 		}
 		
-		public static function faceBookLogin( loginHandler:Function, stg:Stage, permissions:Array, facebookWeb:StageWebView):void{
-			FacebookMobile.login(loginHandler, stg, permissions, facebookWeb);
+		public static function faceBookLogin( loginHandler:Function, stg:Stage, permissions:Array, facebookWeb:Object):void{
+			FacebookMobile.login(loginHandler, stg, permissions, facebookWeb as flash.media.StageWebView);
 		} 
 	}
 }
