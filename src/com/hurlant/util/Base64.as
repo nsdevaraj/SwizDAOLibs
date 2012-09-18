@@ -39,6 +39,18 @@ package com.hurlant.util {
 			return encodeByteArray(bytes);
 		}
 		
+		public static function encode64String ( pString:String ):String
+		{
+			var bBytes:ByteArray = new ByteArray;
+			bBytes.writeUTFBytes ( pString );
+			return encodeByteArray ( bBytes ); 
+		}
+		
+		public static function encode64 (pByteArray:ByteArray, pLineBreak:Boolean=true ):String
+		{       
+			return encodeByteArray ( pByteArray );     
+		}
+		
 		public static function encodeByteArray(data:ByteArray):String {
 			// Initialise output
 			var output:String = "";
