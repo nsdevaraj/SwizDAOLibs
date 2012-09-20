@@ -17,13 +17,25 @@ package com.adams.swizdao.util {
 	import com.facebook.graph.FacebookMobile;
 	
 	import flash.display.Stage;
+	import flash.events.GeolocationEvent;
 	import flash.media.CameraUI;
 	import flash.media.StageWebView;
+	import flash.sensors.Geolocation;
 	
 	public class FBUtil
 	{
-	    public static  var facebookWebView : Object;
-		public static  var mobileCam : Object;
+	    public static var facebookWebView : Object;
+		public static var mobileCam : Object;
+		public static var mobileLocation : Object;  
+		 
+		public static function initGeolocation(onUpdate:Function):void{
+			mobileLocation = new Geolocation();
+			mobileLocation.addEventListener(GeolocationEvent.UPDATE, onUpdate, false, 0 ,true);
+		}
+		
+		public static function removeGeolocation(onUpdate:Function):void{
+			mobileLocation.removeEventListener(GeolocationEvent.UPDATE, onUpdate);
+		}
 		
 		public static function initMobileCam():void{
 			mobileCam = new CameraUI();
