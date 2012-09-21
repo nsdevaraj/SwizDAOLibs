@@ -1,8 +1,4 @@
 package com.adams.swizdao.util {
-	import cmodule.as3_jpeg_wrapper.CLibInit;
-
-	import mx.core.UIComponent;
-
 	import flash.display.BitmapData;
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
@@ -10,6 +6,10 @@ package com.adams.swizdao.util {
 	import flash.geom.Matrix;
 	import flash.geom.Rectangle;
 	import flash.utils.ByteArray;
+	
+	import mx.core.UIComponent;
+	
+	import cmodule.as3_jpeg_wrapper.CLibInit;
 
 	public class FileExporter {
 			
@@ -36,9 +36,13 @@ package com.adams.swizdao.util {
 			resultBitmapData.draw(target, m);
 			return resultBitmapData;
 		}
-
-		public static function encodeToJPEG(data : BitmapData, quality : Number = 100) : ByteArray {
+		
+		public static function initJPEGEncoder():void{
 			if(!as3_jpeg_wrapper)as3_jpeg_wrapper = loader.init();
+		}
+		
+		public static function encodeToJPEG(data : BitmapData, quality : Number = 100) : ByteArray {
+			initJPEGEncoder();
 			var baSource:ByteArray=data.clone().getPixels(new Rectangle(0,0,data.width,data.height));
 			return as3_jpeg_wrapper.write_jpeg_file(baSource, data.width,data.height, 3, 2, quality); 
 		}
