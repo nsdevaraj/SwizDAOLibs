@@ -37,6 +37,7 @@ package com.adams.swizdao.util
 		public static const RECEIVE_MSG:String = 'receiveMsg';
 		public static const FINDTASKSLIST:String = 'findTasksList';
 		
+		public static const URL_REQUEST:String = 'url_request';
 		public static const HTTP_REQUEST:String = 'http_request';
 		public static const E4X_REQUEST:String = 'e4x_request';
 		public static const PAGINATIONQUERY:String = 'findPersonsListOracle';
@@ -66,6 +67,6 @@ package com.adams.swizdao.util
 		public static const EXCELCONVERTIONJAVA:String = 'javaExcelConvertion';
 		public static const PAGINGACTIONS:Array = [FILEDOWNLOAD,BULKUPDATEPROJECTPROPERTIES,GETQUERYRESULT,GET_COUNT,REFRESHQUERY,
 			GETPROJECTSLIST,PAGINATIONLISTVIEW,QUERYLISTVIEW,PAGINATIONLISTVIEWID,QUERYPAGINATION,GETLOGINLISTRESULT,
-			UPDATETWEET,SENDMAIL,CREATEPERSON,PDFCONVERTIONJAVA,EXCELCONVERTIONJAVA,GETSESSIONJAVA];
+			UPDATETWEET,SENDMAIL,CREATEPERSON,PDFCONVERTIONJAVA,EXCELCONVERTIONJAVA,GETSESSIONJAVA,URL_REQUEST];
 	}
 }

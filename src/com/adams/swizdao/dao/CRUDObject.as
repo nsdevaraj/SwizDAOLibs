@@ -21,6 +21,12 @@ package com.adams.swizdao.dao
 	import com.adams.swizdao.model.vo.IValueObject;
 	import com.adams.swizdao.response.AbstractResult;
 	
+	import flash.events.Event;
+	import flash.net.URLRequest;
+	import flash.net.URLRequestHeader;
+	import flash.net.URLRequestMethod;
+	import flash.net.URLVariables;
+	
 	import mx.collections.IList;
 	import mx.rpc.AsyncToken;
 	import mx.rpc.http.HTTPService;
@@ -31,8 +37,9 @@ package com.adams.swizdao.dao
 	{
 		[Inject]
 		public var delegate:AbstractResult;
-		
+		 
 		protected var requestService:HTTPService;
+		protected var request:URLRequest;
 		protected var lastParam:Object;
 		private var _voClazz:Class;
 		public function get voClazz():Class
@@ -262,6 +269,16 @@ package com.adams.swizdao.dao
 			return delegate.token;
 		}
 		
+		public function makeURLLoadCall( url:String, _sendBy:String = "get", variables:URLVariables=null):void {
+			if(!request)
+				request = new URLRequest(url); 
+			if(variables)
+				request.data = variables;	
+			request.method = (_sendBy=="get") ? URLRequestMethod.GET : URLRequestMethod.POST;
+			request.requestHeaders.push( new URLRequestHeader( 'Cache-Control', 'no-cache' ) ); 
+			delegate.callURLLoader(request);
+		}  
+		 
 		/**
 		 * Whenever an bulk update action is called by AbstractDAO.
 		 * invokeAction initates to perform Generic bulk update Action

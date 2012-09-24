@@ -27,6 +27,9 @@ package com.adams.swizdao.response
 	import com.adams.swizdao.util.ErrorHandler;
 	import com.adams.swizdao.util.GetVOUtil;
 	
+	import flash.events.Event;
+	import flash.net.URLRequest;
+	
 	import mx.collections.ArrayCollection;
 	import mx.core.ClassFactory;
 	import mx.rpc.AsyncToken;
@@ -35,6 +38,7 @@ package com.adams.swizdao.response
 	
 	import org.swizframework.controller.AbstractController;
 	import org.swizframework.utils.services.ServiceHelper;
+	import org.swizframework.utils.services.URLRequestHelper;
 	
 	public class AbstractResult extends AbstractController
 	{
@@ -57,6 +61,9 @@ package com.adams.swizdao.response
 		[Inject]
 		public var currentInstance:CurrentInstance;  
 		
+		[Inject]
+		public  var urlRequestHelper:URLRequestHelper;
+		
 		public var resultObj:Object;
 		
 		private var _token:AsyncToken = new AsyncToken();
@@ -71,6 +78,16 @@ package com.adams.swizdao.response
 			_token = value; 
 			service.executeServiceCall( _token, resultHandler, faultHandler, [ serviceSignal ] );
 		} 
+		
+		public function callURLLoader( request:URLRequest):void { 
+			urlRequestHelper.executeURLRequest( request, urlResultHandler, faultHandler, null, null,  [ serviceSignal ] );
+		} 
+		
+		protected function urlResultHandler(event:Event, prevSignal:AbstractSignal = null):void {
+			currentInstance.waitingForServerResponse = false;
+			var currentVO:IValueObject;
+			resultObj = event.target.data;
+		}
 		
 		/** The resultSignal is dispatched to intimate about the Server process is complete.
 		 * So, further View updates can take place. Also, local parent set mappings of persistent object

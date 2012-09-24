@@ -16,18 +16,19 @@ package com.adams.swizdao.util {
 		private static var as3_jpeg_wrapper: Object;
 		private static var loader:CLibInit = new CLibInit();
 		public static var makeupFile:File; 
-		public static function saveImage(targetPanel : UIComponent, cordPanel : UIComponent) : void {
-			if(!as3_jpeg_wrapper)as3_jpeg_wrapper = loader.init();
-			saveImageData(getUIComponentBitmapData(targetPanel, cordPanel));
+		public static function saveImage(targetPanel : UIComponent, cordPanel : UIComponent) : String {
+			initJPEGEncoder();
+			return saveImageData(getUIComponentBitmapData(targetPanel, cordPanel));
 		}
 
-		public static function saveImageData(newBitdata : BitmapData) : void {
+		public static function saveImageData(newBitdata : BitmapData) : String {
 			var btArray : ByteArray = encodeToJPEG(newBitdata, 100);
 			var stream:FileStream = new FileStream();
 			makeupFile= File.createTempFile();
-            stream.open(makeupFile,FileMode.WRITE);
-            stream.writeBytes(btArray);
-            stream.close();
+			stream.open(makeupFile,FileMode.WRITE);
+			stream.writeBytes(btArray);
+			stream.close();
+			return makeupFile.nativePath;
 		} 
 
 		public static function getUIComponentBitmapData(target : UIComponent, cord : UIComponent) : BitmapData {

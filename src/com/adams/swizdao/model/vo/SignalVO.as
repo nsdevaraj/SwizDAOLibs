@@ -37,6 +37,8 @@ package com.adams.swizdao.model.vo
 		private var _collection:ICollection;
 		private var _list:IList;
 		private var _description:Object;
+		
+		private var _variables:Object;
 		private var _objectId:String;
 		private var _daoName:String;
 		private var _performed:Boolean;
@@ -61,9 +63,9 @@ package com.adams.swizdao.model.vo
 				collection = dao.collection;
 				processor = dao.processor;
 				clazz =dao.voClazz;
-				action = actionStr;
 			}
 			
+			action = actionStr;
 			if( pushmsg ) {
 				receivers = pushmsg.receivers;
 				name = pushmsg.name;
@@ -72,6 +74,16 @@ package com.adams.swizdao.model.vo
 			
 		}
 		
+		public function get variables():Object
+		{
+			return _variables;
+		}
+
+		public function set variables(value:Object):void
+		{
+			_variables = value;
+		}
+
 		public function get emailBody():String
 		{
 			return _emailBody;
