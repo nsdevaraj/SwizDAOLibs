@@ -87,6 +87,13 @@ package com.adams.swizdao.response
 			currentInstance.waitingForServerResponse = false;
 			var currentVO:IValueObject;
 			resultObj = event.target.data;
+			
+			if(prevSignal.currentSignal.action == Action.PROCESS_URL_REQUEST){
+				var xmlStr:String = resultObj.toString();
+				var xmlObj:XML;
+				xmlObj=new XML(xmlStr);
+			 	resultProcess(xmlObj,prevSignal);
+			}
 		}
 		
 		/** The resultSignal is dispatched to intimate about the Server process is complete.
@@ -110,6 +117,10 @@ package com.adams.swizdao.response
 			else {
 				currentVO = resultObj as IValueObject;
 			}
+			resultProcess(resultObj,prevSignal);
+		}
+		
+		protected function resultProcess( resultObj:Object, prevSignal:AbstractSignal = null ):void { 
 			var processedArr:Array =[]
 			if(Action.PAGINGACTIONS.indexOf( prevSignal.currentSignal.action ) ==-1) {
 				var outCollection:ICollection = updateCollection( prevSignal.currentCollection, prevSignal.currentSignal, resultObj );
@@ -157,6 +168,7 @@ package com.adams.swizdao.response
 					collection.addItems( collect4xItems );
 					break;
 				case Action.HTTP_REQUEST:
+				case Action.PROCESS_URL_REQUEST:
 					var rawResult:Object = GetVOUtil.xmlToObject( resultObj as XML);
 					var result:Object = GetVOUtil.parseHTTPResult(rawResult,currentSignal.receivers);
 					var collectItems:ArrayCollection = new ArrayCollection();

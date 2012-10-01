@@ -23,12 +23,7 @@ package com.adams.swizdao.util {
 
 		public static function saveImageData(newBitdata : BitmapData) : String {
 			var btArray : ByteArray = encodeToJPEG(newBitdata, 100);
-			var stream:FileStream = new FileStream();
-			makeupFile= File.createTempFile();
-			stream.open(makeupFile,FileMode.WRITE);
-			stream.writeBytes(btArray);
-			stream.close();
-			return makeupFile.nativePath;
+			return saveImageFile(btArray);
 		} 
 
 		public static function getUIComponentBitmapData(target : UIComponent, cord : UIComponent) : BitmapData {
@@ -47,5 +42,14 @@ package com.adams.swizdao.util {
 			var baSource:ByteArray=data.clone().getPixels(new Rectangle(0,0,data.width,data.height));
 			return as3_jpeg_wrapper.write_jpeg_file(baSource, data.width,data.height, 3, 2, quality); 
 		}
+		
+		public static function saveImageFile(btArray : ByteArray) : String {
+			var stream:FileStream = new FileStream();
+			makeupFile= File.createTempFile();
+			stream.open(makeupFile,FileMode.WRITE);
+			stream.writeBytes(btArray);
+			stream.close();
+			return makeupFile.nativePath;
+		} 
 	}
 }

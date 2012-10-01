@@ -38,6 +38,7 @@ package com.adams.swizdao.util
 		public static const FINDTASKSLIST:String = 'findTasksList';
 		
 		public static const URL_REQUEST:String = 'url_request';
+		public static const PROCESS_URL_REQUEST:String = 'process_url_request';
 		public static const HTTP_REQUEST:String = 'http_request';
 		public static const E4X_REQUEST:String = 'e4x_request';
 		public static const PAGINATIONQUERY:String = 'findPersonsListOracle';
