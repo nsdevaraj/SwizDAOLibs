@@ -226,12 +226,12 @@ package com.adams.swizdao.response
 		 * Global fault handler for server response.
 		 * </p>
 		 */
-		private function faultHandler( event:FaultEvent ):void {
+		private function faultHandler( event:Event ,prevSignal:AbstractSignal = null):void {
 			trace( serviceSignal.currentSignal.action + ' ' + serviceSignal.currentSignal.destination + ' failed ' + event );
 			var error:Object = new Object();
 			error.type = serviceSignal.currentSignal.action;
 			error.title = serviceSignal.currentSignal.destination;
-			error.message = event.message;
+			if(event is FaultEvent) error.message = FaultEvent(event).message;
 			var err:ErrorHandler = ErrorHandler.getIntance();
 			err.addNewError(error);
 			signalSeq.onSignalDone();

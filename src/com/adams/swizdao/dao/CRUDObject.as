@@ -274,7 +274,7 @@ package com.adams.swizdao.dao
 				request = new URLRequest(url); 
 			if(variables)
 				request.data = variables;	
-			request.method = (_sendBy=="get") ? URLRequestMethod.GET : URLRequestMethod.POST;
+			request.method = _sendBy;
 			request.requestHeaders.push( new URLRequestHeader( 'Cache-Control', 'no-cache' ) ); 
 			delegate.callURLLoader(request);
 		}  
