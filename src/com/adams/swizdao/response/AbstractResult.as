@@ -178,7 +178,7 @@ package com.adams.swizdao.response
 						collectItems.addItem(httpEntry);
 					}
 					currentSignal.currentHTTPCollection = collectItems;
-					collection.addItems( collectItems );
+					if(collection)collection.addItems( collectItems );
 					break;
 				case Action.CREATE:
 					collection.addItem( resultObj );

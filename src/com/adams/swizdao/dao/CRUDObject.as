@@ -20,11 +20,10 @@ package com.adams.swizdao.dao
 	import com.adams.swizdao.model.processor.IVOProcessor;
 	import com.adams.swizdao.model.vo.IValueObject;
 	import com.adams.swizdao.response.AbstractResult;
+	import com.adams.swizdao.util.UploadPostHelper;
 	
-	import flash.events.Event;
 	import flash.net.URLRequest;
 	import flash.net.URLRequestHeader;
-	import flash.net.URLRequestMethod;
 	import flash.net.URLVariables;
 	
 	import mx.collections.IList;
@@ -275,6 +274,11 @@ package com.adams.swizdao.dao
 			if(variables)
 				request.data = variables;	
 			request.method = _sendBy;
+			
+			if(_sendBy == 'multipart'){
+				request.contentType = 'multipart/form-data; boundary=' + UploadPostHelper.getBoundary();
+				request.method = 'post';
+			}
 			request.requestHeaders.push( new URLRequestHeader( 'Cache-Control', 'no-cache' ) ); 
 			delegate.callURLLoader(request);
 		}  

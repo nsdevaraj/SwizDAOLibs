@@ -22,8 +22,13 @@ package com.adams.swizdao.dao {
 	import com.adams.swizdao.response.SignalSequence;
 	import com.adams.swizdao.util.Action;
 	import com.adams.swizdao.util.ArrayUtil;
-
+	
+	import flash.net.URLRequest;
+	import flash.net.URLRequestHeader;
+	import flash.net.URLVariables;
+	
 	import mx.rpc.AsyncToken;
+	import mx.rpc.http.HTTPService;
 	import mx.rpc.remoting.mxml.RemoteObject;
 	
 	public class PagingDAO implements IAbstractDAO
@@ -35,6 +40,8 @@ package com.adams.swizdao.dao {
 		[Inject]
 		public var delegate:AbstractResult;
 		
+		protected var requestService:HTTPService;
+		protected var request:URLRequest;
 		public function PagingDAO()
 		{
 		}
@@ -97,12 +104,25 @@ package com.adams.swizdao.dao {
 			remoteService.destination = destination;
 		}
 		
+		public function makeURLLoadCall( url:String, _sendBy:String = "get", variables:URLVariables=null):void {
+			if(!request)
+				request = new URLRequest(url); 
+			if(variables)
+				request.data = variables;	
+			request.method = _sendBy;
+			request.requestHeaders.push( new URLRequestHeader( 'Cache-Control', 'no-cache' ) ); 
+			delegate.callURLLoader(request);
+		}  
 		
 		[MediateSignal(type="AbstractSignal")]
 		public function invokeAction( obj:SignalVO ):AsyncToken {
 			invoke();
 			if( obj.destination == this.destination ) {
 				switch( obj.action ) {
+					case Action.URL_REQUEST:
+					case Action.PROCESS_URL_REQUEST:
+						makeURLLoadCall( obj.emailBody, obj.emailId, obj.variables as URLVariables );
+						break;
 					case Action.PAGINATIONQUERY:
 						delegate.token = remoteService.paginationListViewId(obj.description,obj.id,obj.startIndex,obj.endIndex) ;
 						return delegate.token;

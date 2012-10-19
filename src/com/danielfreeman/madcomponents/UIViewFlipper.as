@@ -27,7 +27,6 @@ package com.danielfreeman.madcomponents {
 
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
-	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	
 /**
@@ -61,7 +60,7 @@ package com.danielfreeman.madcomponents {
 	
 		protected var _pages:Array = new Array();
 		protected var _page:int = 0;
-	
+		public var heightVariant:Number = 1.26;
 		public function UIViewFlipper(screen:Sprite, xml:XML, attributes:Attributes) {
 			var newAttributes:Attributes = attributes.copy();
 			newAttributes.x=0;
@@ -166,39 +165,35 @@ package com.danielfreeman.madcomponents {
 				for (var i:int = 0; i<_pages.length; i++) {
 					var fill:Number = i == _page ? 1.0 : 0.0;
 					_scrollBarLayer.graphics.beginFill(_scrollBarColour, fill);
-					_scrollBarLayer.graphics.drawCircle(barPosition + i * SPACING + SPACING/2, _height - SCROLLBAR_GAP, RADIUS + fill);
+					_scrollBarLayer.graphics.drawCircle(barPosition + i * SPACING + SPACING/2, _height * heightVariant, RADIUS + fill);
 				}
 			}
 		}
 		
-		
 		override protected function hideScrollBar():void {
 		}
-		
 		
 		override protected function mouseMove(event:TimerEvent):void {
 			_delta = -_slider.x;
 			sliderX = _startSlider.x + (mouseX - _startMouse.x);
 			_delta += _slider.x;
 			_distance += Math.abs(_delta);
-			if (_distance > THRESHOLD) {
-				showScrollBar();
+			if (_distance > THRESHOLD ) {
+					showScrollBar();
 			}
-			else if (_touchTimer.currentCount == MAXIMUM_TICKS) {
+			else if (_touchTimer.currentCount == MAXIMUM_TICKS) { 
 				pressButton();
 				if (_pressButton) {
 					_touchTimer.stop();
 					_dragTimer.reset();
 					_dragTimer.start();
-				}
+				} 
 			}
 		}
-		
 		
 		protected function slideCondition():Boolean {
 			return !_pressButton && (Math.abs(mouseX-_startMouse.x)/_touchTimer.currentCount) > DISTANCE_PER_TICK && _touchTimer.currentCount < TICKS_THRESHOLD;
 		}
-		
 		
 		override protected function startMovement0():Boolean {
 			if (slideCondition()) {
@@ -243,7 +238,7 @@ package com.danielfreeman.madcomponents {
 				_slider.x = value;
 			}
 		}
-		
+		 
 /**
  *  Animate view flipper movement
  */
@@ -269,13 +264,11 @@ package com.danielfreeman.madcomponents {
 			}
 		}
 		
-		
 		public function set pageNumber(value:int):void {
 			_page = value;
 			_slider.x = - _page * _width;
 			showScrollBar();
 		}
-		
 		
 		public function get pageNumber():int {
 			return _page;
