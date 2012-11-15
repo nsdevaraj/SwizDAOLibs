@@ -23,7 +23,7 @@ package com.adams.swizdao.util{
 	 *
 	 */
 	public class ErrorHandler {
-		public static const VERSION : String = "0.2";
+		public static const VERSION : String = "1.0.4";
 		
 		public static const PLAYER_STANDALONE : String = "StandAlone";// for the Flash StandAlone Player
 		public static const PLAYER_EXTERNAL : String = "External";// for the Flash Player version used by the external player, or test movie mode..
@@ -43,7 +43,7 @@ package com.adams.swizdao.util{
 		private var _stage : Stage;
 		private var _display : DisplayObject;
 		private var _container : Sprite;
-		private var _errors : Vector.<ErrorData>;
+		private var _errors : Array =[];
 		private var _errorIndex : uint = 0;
 		
 		private var _buildMode : String = isDebugBuild() ? MODE_DEBUG : MODE_RELEASE;
@@ -124,7 +124,6 @@ package com.adams.swizdao.util{
 		
 		private function start(stage : Stage) : void {
 			_stage = stage;
-			_errors = new Vector.<ErrorData>();
 			
 			if (_stage.stageWidth < _windowWidth)
 				_windowWidth = _stage.stageWidth;
@@ -140,6 +139,7 @@ package com.adams.swizdao.util{
 			
 			
 			var data : ErrorData = new ErrorData();
+			data.viewName = _display.name;
 			if (event.error is Error) {
 				var error : Error = event.error as Error;
 				data.title = error.message;
@@ -160,6 +160,7 @@ package com.adams.swizdao.util{
 			
 		public function addNewError(dataObj:Object):void{
 			var data: ErrorData = new ErrorData();
+			data.viewName = _display.name;
 			data.type = dataObj.type;
 			data.title = dataObj.title;
 			data.message = dataObj.message;
@@ -170,7 +171,7 @@ package com.adams.swizdao.util{
 		}
 		
 		private function showError() : void {
-			if (isActive() && false) {
+			if (isActive()){// && false) {
 				if (_container == null) {
 					initView();
 					DisplayObjectContainer(_stage.getChildAt(0)).addChild(_container);
@@ -185,7 +186,6 @@ package com.adams.swizdao.util{
 			}
 		}
 		
-		// ditchhopper version
 		private function getSWFName() : String {
 			return String(_stage.loaderInfo.url.split("/").pop()).replace("%5F", "_").replace("%2D", "-");
 		}
@@ -206,17 +206,18 @@ package com.adams.swizdao.util{
 			var i : uint = index == -1 ? _errorIndex : index;
 			var data : ErrorData = _errors[i];
 			var message : String = "";
-			
 			if (html) {
 				message += "<font size='11' color='#FFFFFF'>";
 				message += "<b>" + (i + 1) + "/" + _errors.length + " - " + data.time + "</b><br/><br/>";
 				message += "<b>" + data.title + "</b>";
+				message += "<br/>" + data.viewName;
 				message += "<br/>" + data.message;
 				message += "</font>";
 			} else {
 				message += "\r\n" + (i + 1) + "/" + _errors.length + " - " + data.time;
 				message += _line;
 				message += "\r\n" + data.title;
+				message += "\r\n" + data.viewName;
 				message += "\r\n" + data.message.replace("\n", "\r\n");
 				message += _line + "\r\n\r\n";
 			}
@@ -225,7 +226,6 @@ package com.adams.swizdao.util{
 		
 		private function getInfos(html : Boolean = true) : String {
 			var infos : String = "";
-			
 			if (html) {
 				infos += "<font size='11' color='#FFFFFF'>";
 				infos += "ErrorHandler " + VERSION;
@@ -345,7 +345,7 @@ package com.adams.swizdao.util{
 			
 			_saveButton = new Button(_buttonSize * 3, _buttonSize * 1.5, _buttonBackgroundColor, _buttonTextColor, 11);
 			_saveButton.addEventListener(MouseEvent.CLICK, onClickSave);
-			_saveButton.label.text = "save";
+			_saveButton.label.text = "send";
 			_saveButton.x = _windowWidth - _saveButton.width - 2 - (_buttonSize * 2);
 			_saveButton.y = _buttonSize;
 			_window.addChild(_saveButton);
@@ -368,8 +368,8 @@ package com.adams.swizdao.util{
 		private function onClickSave(event : MouseEvent) : void {
 			var f : FileReference = new FileReference();
 			var d : Date = new Date();
-			f.save(getLogs(), getSWFName() + ".log." + d.fullYear + "-" + format2(d.month + 1) + "-" + format2(d.date) + d.time + ".txt");
-			_errors = new Vector.<ErrorData>();
+			//f.save(getLogs(), getSWFName() + ".log." + d.fullYear + "-" + format2(d.month + 1) + "-" + format2(d.date) + d.time + ".txt");
+			SMTPUtil.sendEmail(FileExporter.saveTxtFile(getLogs()+ getSWFName() + ".log."  + d.fullYear + "-" + format2(d.month + 1) + "-" + format2(d.date) + d.time + ".txt"), SMTPUtil.mailId,false);
 		}
 		
 		private function onClickNext(event : MouseEvent) : void {
@@ -446,10 +446,10 @@ internal class ErrorData {
 	public var time : Date;
 	public var type : String;
 	public var title : String;
+	public var viewName : String;
 	public var message : String;
 	
 	public function ErrorData() {
 		time = new Date();
 	}
 }
-

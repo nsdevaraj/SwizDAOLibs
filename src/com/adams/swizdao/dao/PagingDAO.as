@@ -107,6 +107,7 @@ package com.adams.swizdao.dao {
 		public function makeURLLoadCall( url:String, _sendBy:String = "get", variables:URLVariables=null):void {
 			if(!request)
 				request = new URLRequest(url); 
+			request.url = url;
 			if(variables)
 				request.data = variables;	
 			request.method = _sendBy;

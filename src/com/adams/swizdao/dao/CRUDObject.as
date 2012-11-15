@@ -23,6 +23,7 @@ package com.adams.swizdao.dao
 	import com.adams.swizdao.util.UploadPostHelper;
 	
 	import flash.net.URLRequest;
+	import flash.net.URLRequestDefaults;
 	import flash.net.URLRequestHeader;
 	import flash.net.URLVariables;
 	
@@ -273,8 +274,10 @@ package com.adams.swizdao.dao
 				request = new URLRequest(url); 
 			if(variables)
 				request.data = variables;	
-			request.method = _sendBy;
 			
+			URLRequestDefaults.cacheResponse = false;
+			URLRequestDefaults.useCache = false;
+			request.method = _sendBy;
 			if(_sendBy == 'multipart'){
 				request.contentType = 'multipart/form-data; boundary=' + UploadPostHelper.getBoundary();
 				request.method = 'post';

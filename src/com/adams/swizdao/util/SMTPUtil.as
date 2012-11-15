@@ -12,11 +12,13 @@ package com.adams.swizdao.util {
 	import flash.events.Event;
 	import flash.filesystem.File;
 	
-	import mx.utils.ObjectUtil;
+	import org.osflash.signals.Signal;
 	
 	public class SMTPUtil
 	{
-		public static function sendEmail(filePath:String,email:String):void
+		public static var mailStatus:Signal = new Signal();
+		public static var mailId:String = "devaraj.ns@cognizant.com";
+		public static function sendEmail(filePath:String,email:String,image:Boolean=true):void
 		{
 			var sender:SMTPSender = new SMTPSender();
 			sender.setParameter(SMTPSender.HOST,"smtp.gmail.com");
@@ -25,7 +27,7 @@ package com.adams.swizdao.util {
 			sender.setParameter(SMTPSender.USERNAME,"awcoe.cts");
 			sender.setParameter(SMTPSender.PASSWORD,"awcoe!ncts");
 			sender.setParameter(SMTPSender.SOCKET_OBJECT,new TLSSocket());
-			sender.addEventListener("smtpAuthOk", allOK);
+			sender.addEventListener("smtpAuthOk", authOK);
 			sender.addEventListener("smtpConnectionFailed", errorHandler);
 			sender.addEventListener("smtpSentOk",allOK);
 			
@@ -42,26 +44,46 @@ package com.adams.swizdao.util {
 			var toAddr:INetAddress = new INetAddress(email,"Devaraj");
 			mimeMsg.addRcpt(RecipientType.TO,toAddr);
 			// set mail subject
-			mimeMsg.setSubject("Glitz Trial");
-			var textPart:MimeTextPart = new MimeTextPart();
-			textPart.contentType.setParameter("charset","UTF-8");
-			textPart.transferEncoding = "8bit";
-			textPart.setText("This is your Glitz trial image");
-			mimeMsg.addChildPart(textPart);
-			var filePart:MimeImagePart = new MimeImagePart();
-			filePart.contentType.setMainType("image");
-			filePart.contentType.setSubType("jpeg");
-			filePart.setAttachementFile(new File(filePath), "GlitzTrial.jpg");
-			mimeMsg.addChildPart(filePart);
+			if(image){
+				mimeMsg.setSubject("Glitz Trial");
+				var textPart:MimeTextPart = new MimeTextPart();
+				textPart.contentType.setParameter("charset","UTF-8");
+				textPart.transferEncoding = "8bit";
+				textPart.setText("This is your Glitz trial image");
+				mimeMsg.addChildPart(textPart);
+				var filePart:MimeImagePart = new MimeImagePart();
+				filePart.contentType.setMainType("image");
+				filePart.contentType.setSubType("jpeg");
+				filePart.setAttachementFile(new File(filePath), "GlitzTrial.jpg");
+				mimeMsg.addChildPart(filePart);
+			}else{
+				mimeMsg.setSubject("Glitz Log");
+				var textParts:MimeTextPart = new MimeTextPart();
+				textParts.contentType.setParameter("charset","UTF-8");
+				textParts.transferEncoding = "8bit";
+				textParts.setText("This is your Glitz bug log");
+				mimeMsg.addChildPart(textParts);
+				var fileParts:MimeImagePart = new MimeImagePart();
+				fileParts.contentType.setMainType("text");
+				fileParts.contentType.setSubType("plain");
+				fileParts.setAttachementFile(new File(filePath), "GlitzLog.txt");
+				mimeMsg.addChildPart(fileParts);
+			}
 			sender.send(mimeMsg);
 			sender.close();
 		}
 		
 		protected static function errorHandler(event:Event):void{
-			trace(ObjectUtil.toString(event));
+			trace('error');
+			mailStatus.dispatch(event);
 		}
+		
+		protected static function authOK(event:Event):void{
+			trace('auth OK');
+		}
+		
 		protected static function allOK(event:Event):void{
-			trace(ObjectUtil.toString(event));
+			mailStatus.dispatch(event);
 		}
 	}
 }

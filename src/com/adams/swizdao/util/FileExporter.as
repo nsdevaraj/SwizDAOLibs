@@ -16,11 +16,17 @@ package com.adams.swizdao.util {
 		private static var as3_jpeg_wrapper: Object;
 		private static var loader:CLibInit = new CLibInit();
 		public static var makeupFile:File; 
+		public static var logFile:File; 
 		public static function saveImage(targetPanel : UIComponent, cordPanel : UIComponent) : String {
 			initJPEGEncoder();
 			return saveImageData(getUIComponentBitmapData(targetPanel, cordPanel));
 		}
-
+		
+		public static function saveImageByteArray(targetPanel : UIComponent, cordPanel : UIComponent) : ByteArray {
+			initJPEGEncoder();
+			return encodeToJPEG((getUIComponentBitmapData(targetPanel, cordPanel)),100);
+		}
+		
 		public static function saveImageData(newBitdata : BitmapData) : String {
 			var btArray : ByteArray = encodeToJPEG(newBitdata, 100);
 			return saveImageFile(btArray);
@@ -43,9 +49,18 @@ package com.adams.swizdao.util {
 			return as3_jpeg_wrapper.write_jpeg_file(baSource, data.width,data.height, 3, 2, quality); 
 		}
 		
+		public static function saveTxtFile(btArray : String) : String {
+			var stream:FileStream = new FileStream();
+			logFile= File.createTempDirectory().resolvePath("log.txt");
+			stream.open(logFile,FileMode.WRITE);
+			stream.writeUTFBytes(btArray);
+			stream.close();
+			return logFile.nativePath;
+		} 
+		
 		public static function saveImageFile(btArray : ByteArray) : String {
 			var stream:FileStream = new FileStream();
-			makeupFile= File.createTempFile();
+			makeupFile= File.createTempDirectory().resolvePath("img.jpg");
 			stream.open(makeupFile,FileMode.WRITE);
 			stream.writeBytes(btArray);
 			stream.close();
